@@ -46,12 +46,10 @@ numbers.forEach(function(number) {
         if (operator === undefined && flag === true) {
             num = number.textContent;
             num1 += num;
-            num1 = Number(num1);
-            display.textContent = num1;           
+            display.textContent = num1;
         } else if(flag === true) {
             num = number.textContent;
             num2 += num;
-            num2 = Number(num2);
             display.textContent = num2;
         }
     })
@@ -63,6 +61,8 @@ eval.addEventListener('click', function() {
     if (num2 === "") {
         display.textContent = num1;
     } else if (num2 != "" || num2 === 0) {
+        num1 = Number(num1);
+        num2 = Number(num2);
         num1 = operate(num1, num2, operator)
         display.textContent = num1;
         if (num1 === "ERROR") {
@@ -77,8 +77,18 @@ const operators = Array.from(document.querySelectorAll('.operators'));
 operators.forEach(function(operation) {
     operation.addEventListener('click', function() {
         flag = false;
+        num1 = String(num1);
+        num2 = String(num2);
         if (num1 != "") {
             if (num2 != "") {
+                if (num1.charAt(num1.length - 1) == '.') {
+                    num1 += "0";
+                }
+                if (num2.charAt(num2.length - 1) == '.') {
+                    num2 += "0";
+                }
+                num1 = Number(num1);
+                num2 = Number(num2);
                 num1 = operate(num1, num2, operator);
                 display.textContent = num1;
                 if (num1 === "ERROR") {
@@ -98,4 +108,19 @@ clear.addEventListener('click', function () {
     num2 = "";
     operator = undefined;
     display.textContent = "";
+})
+
+const decimal = document.querySelector('.decimal');
+decimal.addEventListener('click', function() {
+    if (!display.textContent.includes(".")) {
+        if (display.textContent == num1) {
+            display.textContent += ".";
+            num1 = display.textContent;
+        } else {
+            display.textContent += ".";
+            num2 = display.textContent;
+        }
+    } else {
+        display.textContent = display.textContent;
+    }
 })
