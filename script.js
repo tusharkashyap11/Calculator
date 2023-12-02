@@ -63,7 +63,8 @@ eval.addEventListener('click', function() {
     } else if (num2 != "" || num2 === 0) {
         num1 = Number(num1);
         num2 = Number(num2);
-        num1 = operate(num1, num2, operator)
+        num1 = operate(num1, num2, operator);
+        num1 = roundResult(num1);
         display.textContent = num1;
         if (num1 === "ERROR") {
             num1 = "";
@@ -90,6 +91,7 @@ operators.forEach(function(operation) {
                 num1 = Number(num1);
                 num2 = Number(num2);
                 num1 = operate(num1, num2, operator);
+                num1 = roundResult(num1);
                 display.textContent = num1;
                 if (num1 === "ERROR") {
                     num1 = "";
@@ -107,7 +109,7 @@ clear.addEventListener('click', function () {
     num1 = "";
     num2 = "";
     operator = undefined;
-    display.textContent = "";
+    display.textContent = "0";
 })
 
 const decimal = document.querySelector('.decimal');
@@ -122,5 +124,22 @@ decimal.addEventListener('click', function() {
         }
     } else {
         display.textContent = display.textContent;
+    }
+})
+
+function roundResult(number) {
+    return Math.round(number * 1000) / 1000
+}
+
+const del = document.querySelector('.delete');
+del.addEventListener('click', function() {
+    if (display.textContent == num1) {
+        num1 = num1.toString().slice(0, -1);
+    } else {
+        num2 = num2.toString().slice(0, -1);
+    }
+    display.textContent = display.textContent.slice(0, -1);
+    if (display.textContent === "") {
+        display.textContent = "0";
     }
 })
