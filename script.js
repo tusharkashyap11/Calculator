@@ -44,10 +44,17 @@ numbers.forEach(function(number) {
     number.addEventListener('click', function() {
         flag = true;
         if (operator === undefined && flag === true) {
+            if (number.textContent === "0" && num1 == 0) {
+                return;
+            }
             num = number.textContent;
             num1 += num;
             display.textContent = num1;
         } else if(flag === true) {
+            if (number.textContent === "0" && num2 == 0) {
+                display.textContent = "0";
+                return;
+            }
             num = number.textContent;
             num2 += num;
             display.textContent = num2;
@@ -64,12 +71,15 @@ eval.addEventListener('click', function() {
         num1 = Number(num1);
         num2 = Number(num2);
         num1 = operate(num1, num2, operator);
-        num1 = roundResult(num1);
-        display.textContent = num1;
         if (num1 === "ERROR") {
+            display.textContent = num1;
             num1 = "";
             operator = undefined;
+            num2 = "";
+            return;
         }
+        num1 = roundResult(num1);
+        display.textContent = num1;
         num2 = "";
     }
 })
@@ -90,16 +100,17 @@ operators.forEach(function(operation) {
                 }
                 num1 = Number(num1);
                 num2 = Number(num2);
+                display.textContent = num1 + " " + operation.textContent + " " + num2;
                 num1 = operate(num1, num2, operator);
-                num1 = roundResult(num1);
-                display.textContent = num1;
                 if (num1 === "ERROR") {
                     num1 = "";
                     operator = undefined;
                 }
                 num2 = "";
+                num1 = roundResult(num1);
             }
             operator = operation.textContent;
+            display.textContent = num1 + " " + operation.textContent + " " + num2;
         }
     })
 })

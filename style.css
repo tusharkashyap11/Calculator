@@ -1,5 +1,5 @@
 body {
-    background-color: darkslategray;
+    background-color: lightgray;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,6 +34,7 @@ button {
     border-radius: 10px;
     font-size: 16px;
     font-weight: 900;
+    cursor: pointer;
 }
 .clear, .delete {
     width: 9.5rem;
